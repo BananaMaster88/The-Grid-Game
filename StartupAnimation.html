@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html style="background-color:black;width:100vw;height:100vh" class="iaColorChange">
+    <head>
+        <style>
+            .iaDiv {
+                width:100%;
+                height:100%
+            }
+            .iaP {
+                height:100px;
+                width:100px;
+                z-index: 0;
+                display: block;
+                position: absolute;
+                background-color: red;
+                border: solid 2px black;
+                margin:auto;
+                top:-120px;
+                left:calc(50% - 50px);
+                animation: iAP 2s linear(0 0%, 1.01 26.72%, 0.67 36.21%, 0.54 47.52%, 0.5 57.2%, 0.55 66.78%, 0.67 74.59%, 1 77.37%, 0.88 89.02%, 1 100%) forwards 1;
+            }
+            @keyframes iAP {
+                60%{
+                    top:-120px;
+                }
+                100%{
+                    top:38%;
+                }
+            }
+            @keyframes iAPpump {
+                0%{
+                    top:38%;
+                }
+                7% {
+                    top:38%;
+                }
+                47% {
+                    top:73%;
+                }
+                53% {
+                    top:75%;
+                }
+                60% {
+                    top:-120px;
+                }
+                100% {
+                    top:-120px;
+                }
+            }
+            @keyframes iAPfall {
+                0%{
+                    top:-120px;
+                    left:calc(50% - 70px);
+                }
+                80%{
+                    top:-120px;
+                }
+                100%{
+                    top:35%;
+                    left:calc(50% - 70px);
+                }
+            }
+            @keyframes iATumble {
+                0%{
+                    top:35%;
+                    left:calc(50% - 70px);
+                }
+                70%{
+                    transform:rotate(-90deg);
+                    left:calc(50% - 170px);
+                    top:calc(35%-100px)
+                }
+                100%{
+                    transform:rotate(-140deg);
+                    left:calc(50% - 170px);
+                    top:51%;
+                }
+            }
+            @keyframes iAPslide {
+                0%{
+                    transform:rotate(-140deg);
+                    left:calc(50% - 170px);
+                    top:51%;
+                }
+                100%{
+                    transform:rotate(-140deg);
+                    left:70%;
+                    top:100%;
+                }
+            }
+            .iaTitle {
+                opacity:0;
+                position: absolute;
+                text-align: center;
+                margin:auto;
+            }
+            @keyframes iATitle {
+                0%{
+                    opacity: 0;
+                }
+                50%{
+                    opacity:0.7
+                }
+                100%{
+                    opacity:1;
+                }
+            }
+            @keyframes iATitleRepeat {
+                0%{
+                    opacity: 0;
+                }
+                50%{
+                    opacity:0.7
+                }
+                100%{
+                    opacity:1;
+                }
+            }
+            .iaTowerGrid {
+                width:38px;
+                height:38px;
+                border:black solid 1px;
+                margin:none;
+                float:left;
+            }
+            .iaTower {
+                position: absolute;
+                display: block;
+                width:160px;
+                height:200%;
+                left:calc(50% - 80px);
+                top:50%;
+                border:black solid 1px;
+            }
+            @keyframes iATowerRotate{
+                0%{
+                    top:50%;
+                    rotate:0;
+                }
+                50% {
+                    top:20%;
+                    left:80%;
+                    transform:rotate(-55deg);
+                }
+                100%{
+                    top:20%;
+                    left:80%;
+                    transform:rotate(-50deg);
+                }
+            }
+            @keyframes iATowerPump {
+                50% {
+                    top:87%;
+                }
+                60%{
+                    top:30%;
+                }
+                100%{
+                    top:50%;
+                }
+            };
+        </style>
+    </head>
+    <body>
+            <div class="iaDiv">
+                <div class="iaTitle">
+                    <h1 style="font-size:50px;">The</h1>
+                    <h1 style="margin-top:-40px;font-size:100px;font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                        ">Grid Game</h1>
+                    <p>Created By: Chase Mansfield</p>
+                </div>
+        <div class="iaP"></div>
+        <div class="iaColorChange iaTower"></div>
+            </div>
+        <script>
+            for (e=1;e<100;e++) {
+                document.querySelector('.iaTower').innerHTML += '<div class="iaTowerGrid"></div>'
+            };
+            setTimeout(()=>{
+                document.querySelectorAll('.iaColorChange').forEach((element)=>{
+                    element.style.backgroundColor = 'blue';
+                })
+                setTimeout(()=>{
+                    document.querySelectorAll('.iaColorChange').forEach((element)=>{
+                    element.style.backgroundColor = 'aqua';
+                })
+                setTimeout(()=>{
+                    document.querySelectorAll('.iaColorChange').forEach((element)=>{
+                    element.style.backgroundColor = 'rgb(159, 250, 232)';
+                })
+                },100)
+                },500)
+            },1400);
+            setTimeout(()=>{
+                document.querySelector('.iaTower').style.animation = 'iATowerPump 3s cubic-bezier(0.81,-0.02, 0, 1.06) forwards 1';
+                document.querySelector('.iaP').style.animation = 'iAPpump 3s cubic-bezier(0.42, 0, 0.46, 1.33) forwards 1';
+                setTimeout(() => {
+                    document.querySelectorAll('.iaColorChange').forEach((element)=>{
+                    element.style.backgroundColor = 'pink';
+                })
+                }, 1700);
+            },2500)
+            setTimeout(()=>{
+                document.querySelector('.iaTower').style.animation = 'iATowerRotate 1s cubic-bezier(0.42, 0, 0.26, 2.2) forwards 1';
+                setTimeout(()=>{
+                    document.querySelectorAll('.iaColorChange').forEach((element)=>{
+                    element.style.backgroundColor = 'green';
+                });
+                document.querySelector('.iaP').style.animation = 'iAPfall 0.7s linear forwards 1'
+                },900)
+            },4900)
+            setTimeout(()=>{
+                document.querySelectorAll('.iaColorChange').forEach((element)=>{
+                    element.style.backgroundColor = 'orange';
+                });
+                document.querySelector('.iaTitle').style.animation = 'iATitle 2s linear forwards 1';
+                document.querySelector('.iaP').innerHTML = '<h1 class="iaPtxt" style="text-align:center;">START</h1>';
+                document.querySelector('.iaP').addEventListener('click', ()=>{
+                    document.querySelector('.iaTower').classList.remove('iaColorChange');
+                    document.querySelector('.iaColorChange').style.backgroundColor = 'teal';
+                    document.querySelector('.iaTower').style.background = 'none';
+                    document.querySelector('.iaTitle').style.animation = 'iATitleRepeat 1s cubic-bezier(0.4, 0, 0.63, 1.02) forwards reverse 1';
+                    document.querySelector('.iaP').innerHTML = '';
+                    document.querySelector('.iaP').style.animation = 'iATumble 500ms linear forwards 1';
+                    setTimeout(()=>{
+                        document.querySelector('.iaColorChange').style.backgroundColor = 'purple';
+                        document.querySelector('.iaP').style.animation = 'iAPslide cubic-bezier(0.9, 0.19, 0.79, 0.58) 1s forwards 1';
+                        setTimeout(()=>{
+                            leaveStartPage();
+                        },1000)
+                    },500)
+                })
+            },6500)
+            function leaveStartPage() {
+                window.location = 'The-Grid-Game.html'
+            }
+        </script>
+    </body>
+</html>
