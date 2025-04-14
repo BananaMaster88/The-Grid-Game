@@ -16,7 +16,9 @@
             }
             .mainMenu {
                 margin-top:-110%;
-                animation: menuFallDown 0.7s linear forwards 1;
+                animation: menuFallDown 0.7s linear(0 0%, 0.16 1.78%, 0.22 2.1%, 0.86 6.5%, 1.11 8.6%, 1.3 10.7%, 1.35 11.8%, 1.37 12.9%, 1.37 13.7%, 1.36 14.5%, 1.32 16.2%, 1.03 21.8%, 0.94 24%, 0.89 25.9%, 0.88 26.85%, 0.87 27.8%, 0.87 29.25%, 0.88 30.7%, 0.91 32.4%, 0.98 36.4%, 1.01 38.3%, 1.04 40.5%, 1.05 42.7%, 1.05 44.1%, 1.04 45.7%, 1 53.3%, 0.99 55.4%, 0.98 57.5%, 0.99 60.7%, 1 68.1%, 1.01 72.2%, 1 86.7%, 1 100%) forwards 1;
+                text-align: center;
+                font-family: Georgia, 'Times New Roman', Times, serif;
             }
             @keyframes menuFallDown {
                 0% {
@@ -29,10 +31,6 @@
             .mainMenuSectionHeadings {
                 color:white;
                 font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-            }
-            .mainMenu {
-                text-align: center;
-                font-family: Georgia, 'Times New Roman', Times, serif;
             }
         .spellSection {
                 border:3px solid black;
@@ -87,13 +85,19 @@
         .gameModeSection {
                 border:3px solid black;
                 border-radius: 5%;
+                width:100%;
+                height:320px;
+                background-color: lime;
+                position: relative;
+                float:top;
+            }
+        .gameModeANDPlayColumn {
                 width:250px;
                 height:320px;
                 margin-top:3%;
-                background-color: lime;
                 position: relative;
                 float:left;
-            }
+        }
                 .multiplayerGameMode {
                     color:rgb(230, 71, 71);
                     cursor: pointer;
@@ -172,11 +176,10 @@
                     float:left;
                 }
                     .goToGameBtn {
-                        position: absolute;
-                        right:715px;
-                        top:520px;
-                        padding:10px;
+                        position: relative;
                         margin:auto;
+                        margin-top: 30px;
+                        padding:10px;
                         font-size: 100px;
                         background-color: rgb(51, 197, 51);
                         cursor:all-scroll;
@@ -184,7 +187,7 @@
                         color:white;
                         font-family: Georgia, 'Times New Roman', Times, serif;
                     }
-                    .goToGameBtn:hover {
+                    .goToGameBtn:hover{
                         animation: buttonColorChange 0.2s ease-in-out forwards infinite alternate;
                         color:black;
                     }
@@ -194,34 +197,34 @@
                         }
                         20% {
                             background-color:red;
-                            top:504px;
-                            right: 736px;
+                            margin-top:20px;
+                            margin-right: 7px;
                             padding:15px;
                             transform: rotate(10deg);
                         }
                         40% {
                             background-color: yellow;
-                            top:501px;
-                            right:724px;
+                            margin-top:23px;
+                            margin-right: -4px;
                         }
                         60% {
                             background-color: rgb(255, 0, 208);
-                            top:505px;
-                            right:736px;
+                            margin-top:17px;
+                            margin-right: 12px;
                             padding:10px;
                             transform: rotate(-8deg);
                         }
                         80% {
                             background-color: brown;
-                            top:495px;
-                            right:731px;
+                            margin-top:-8px;
+                            margin-right: -1px;
                             padding:15px;
                             transform: rotate(5deg);
                         }
                         100% {
                             background-color: blue;
-                            top:499px;
-                            right: 743px;
+                            margin-top:20px;
+                            margin-right: 7px;
                             transform: rotate(-7deg);
                         }
                     }
@@ -359,6 +362,7 @@
                 .spellIncognito {
                     display: none;
                     position:relative;
+                    z-index:2;
                 }
                 .puzzleGames {
                     position:relative;
@@ -758,7 +762,34 @@
     background-color: yellow;
     display:none;
 }
-
+.mobileArrowsDiv {
+    position:absolute;
+    float:right;
+    height:210px;
+    width:350px;
+    display:none;
+}
+.mobileArrows {
+    margin:auto;
+    height:90px;
+    width:90px;
+    border:rgba(117, 117, 117, 0.766) inset 3px;
+    font-size:100px;
+}
+.mobileArrowsOutsideBox {
+    padding:2px;
+    margin:2.5px;
+    background-color: rgba(134, 134, 134, 0.489);
+    height:100px;
+    width:100px;
+    float:left;
+    text-align: center;
+}
+.mobileArrowsUpANDDown {
+    float:left;
+    height:205px;
+    width:110px;
+}
     </style>
     </head>
     <body class="fullscreen">
@@ -839,8 +870,10 @@
                 <p class="spellDescriptionStyle spell2Description"></p>
                 <p class="spellDescriptionStyle spell3Description"></p>
                 <p class="spellDescriptionStyle spell4Description"></p>
+            <button onclick="RandomizeSpells()">Randomize</button>
             </div>
-            
+
+            <div class="gameModeANDPlayColumn">
             <div class="gameModeSection">
                 <div class="selectGameMode">
                 <div class="gameModeDiv">
@@ -870,8 +903,6 @@
                 </div>
 
             </div>
-            <button onclick="document.querySelector('.mainMenu').style.display='none'; document.querySelector('.tutorialDiv').style.display='block'">Full Tutorial</button>
-            <button onclick="//document.querySelector('.menuTutorial').style.display = 'block'">Menu Tutorial</button>
             <div class="gotogame">
                 <a class='linkToGame'>
             <button onclick="if (!spell1 || !spell2 || !spell3 || !spell4) {alert('Please finish selecting your spells')} else if (!difficulty || !gameMode) {alert('Please select a game mode and difficulty')} else {pushGrid()}" class="goToGameBtn">PLAY</button>
@@ -889,7 +920,11 @@
                     runGridCode()
                 }
             </script>
-            </div>
+            </div></div>
+
+            <button onclick="document.querySelector('.mainMenu').style.display='none'; document.querySelector('.tutorialDiv').style.display='block'">Full Tutorial</button>
+            <button onclick="//document.querySelector('.menuTutorial').style.display = 'block'">Menu Tutorial</button>
+            <input class="rewardCodeInput" placeholder="reward codes"><button onclick="checkRewardCode()">Submit</button>
             <div class="abilitySection">
                 <h2 class="mainMenuSectionHeadings">Select an Ability</h2>
                 <div class="abilitySelectionDiv">
@@ -945,6 +980,7 @@
 
                 <h6 class="zCreditsReminder"></h6>
             </div>
+            <button style="color:red;background:darkgrey;" onclick="restartAccount()">RESTART ACCOUNT!</button>
         </div>
     <div class="customGameModeMenu" style="display:none;">
         <div class="customPreset" onclick="createCustomPreset();"><h1 style="margin:auto;text-align:center;">Create New</h1><h1 style="font-size: 100px;margin:auto;text-align:center;">+</h1></div>
@@ -957,7 +993,7 @@
         <h3>Enter worth below</h3><input placeholder="Worth" id="customWorthInput">
         <button onclick=" 
         customQuestions.push({
-            html: `<h3>${document.getElementById('customQuestionInput').value}</h3><input placeholder='Answer' class='puzzleInput${customQuestionNum}'><button onclick='puzzleFunction();'>submit</button>`,
+            html: `<h3>${document.getElementById('customQuestionInput').value}</h3><input placeholder='Answer' class='puzzleInput${customQuestionNum}'><button onclick='checkPuzzleInput()'>submit</button>`,
             answer: `${document.getElementById('customAnswerInput').value}`,
             num: customQuestionNum,
             worth: Number(document.getElementById('customWorthInput').value),
@@ -1013,7 +1049,6 @@
                         <button style="float:left; position:relative;">Submit</button>
                             </div>
                             <div class="tGameStats">
-                        <p style="margin:-3px; margin-left:1px;" class="barrierAlert"></p>
                         <p>points: 10</p>
                         <p>Enemies Killed: 0'</p>
                         <p>zCredits: 10</p>
@@ -1092,7 +1127,6 @@
                         <button style="float:left; position:relative;">Submit</button>
                             </div>
                             <div class="tGameStats">
-                        <p style="margin:-3px; margin-left:1px;" class="barrierAlert"></p>
                         <p>points: 10</p>
                         <p>Enemies Killed: 0'</p>
                         <p>zCredits: 10</p>
@@ -1105,7 +1139,7 @@
         <p style="margin:5%;font-size:20px;" class="tutorialText">This is the grid. You play as the red square, and can move throughout the grid using the arrow keys.</p>
         <button class="tContinueBtn">Continue</button>`}
     startTutorial();
-    function startTutorial(){
+    function startTutorial() {
         for (o = 0;o<64;o++) {
         tGrid.push({
         'gridNum': o,
@@ -1265,31 +1299,66 @@
             <p class="enemies-killed"></p>
             <p class="ingame-zCredits"></p>
             <p class="round-count"></p>
+            <p class="round-record"></p>
             <button onclick="alert('Paused')">Pause</button>
             <button class="manualNewRound">Start New Round Manually</button>
             <div class="deathInsuranceCountdown"></div>
         </div>
+        <div class="mobileArrowsDiv">
+            <div class="mobileArrowsOutsideBox" style="margin-top:110px" onclick="walkDirection=-1; movePlayer()">
+            <div class="mobileArrows mobileLeft"><img style="height:100%;width:100%;" src='https://cdn-icons-png.flaticon.com/512/46/46441.png'></div></div>
+                <div class="mobileArrowsUpANDDown">
+            <div class="mobileArrowsOutsideBox" onclick="walkDirection=-8; movePlayer()">
+            <div class="mobileArrows mobileUp"><img style="height:100%;width:100%;rotate:90deg;" src='https://cdn-icons-png.flaticon.com/512/46/46441.png'></div></div>
+            
+            <div class="mobileArrowsOutsideBox" onclick="walkDirection=8; movePlayer()">
+            <div class="mobileArrows mobileDown"><img style="height:100%;width:100%;rotate:270deg;" src='https://cdn-icons-png.flaticon.com/512/46/46441.png'></div></div>
+                </div>
+            <div class="mobileArrowsOutsideBox" style="margin-top:110px;" onclick="walkDirection=1; movePlayer()">
+            <div class="mobileArrows mobileRight" style="rotate:180deg;"><img style="height:100%;width:100%;" src='https://cdn-icons-png.flaticon.com/512/46/46441.png'></div></div>
+        </div>
         </div>
     </div>
         <script>
-            let presetNum = -1;
             let customQuestionNum = 0;
-            let presetName = 'My Preset'
+            let presetName = 'My Preset';
             let customQuestions = [];
             let customPresets = [];
-            let customMenuHTML;
+            let presetNum = -1;
+            let bannedPresets = [];
 
-            //customPresets = localStorage.getItem(customPresetsJSON)
-            //presetNum = localStorage.getItem(presetNumJSON)
-            //prestNum = localStorage.getItem('presetNum', Number('presetNum'));
-            //customPresets = localStorage.getItem('customPresets', JSON.parse('customPresets'));
+            let customMenuHTMLStorage = localStorage.getItem('customMenuHTML');
+            if (customMenuHTMLStorage) {
+                document.querySelector('.customGameModeMenu').innerHTML = JSON.parse(customMenuHTMLStorage)
+            }
+
+            let presetNumStorage = localStorage.getItem('presetNumJSON');
+            if (presetNumStorage) {
+            presetNum = JSON.parse(presetNumStorage);
+            } else {
+            presetNum = -1;
+            }
+
+            let customPresetsStorage = localStorage.getItem('customPresetsJSON')
+            if (customPresetsStorage) {
+            customPresets = JSON.parse(customPresetsStorage);
+            }
+
+            let bannedPresetsStorage = localStorage.getItem('bannedPresetsJSON')
+            if (bannedPresetsStorage) {
+                bannedPresets = JSON.parse(bannedPresetsStorage)
+                bannedPresets.forEach((bannedP)=>{
+                    document.querySelector(`.customPreset${bannedP}`).style.display = 'none';
+                })
+            }
+
             function finishCustomPreset() {
                 presetName = document.getElementById('presetName').value;
                 customPresets.push(customQuestions);
-                //let customPresetsJSON = JSON.stringify(customPresets);
-                //let presetNumJSON = JSON.stringify(presetNum);
-                //localStorage.setItem('customPresetsJSON');
-                //localStorage.setItem('presetNumJSON');
+                let customPresetsJSON = JSON.stringify(customPresets);
+                let presetNumJSON = JSON.stringify(presetNum);
+                localStorage.setItem('customPresetsJSON', customPresetsJSON);
+                localStorage.setItem('presetNumJSON', presetNumJSON);
                 console.log(customPresets);
                 customQuestions = [];
                 document.querySelector('.customGameModeMenu').style.display = 'block';
@@ -1300,9 +1369,18 @@
                 document.querySelector('.customPreset${presetNum}').style.backgroundColor = 'rgb(193, 250, 179)';
                 puzzles = customPresets[${presetNum}];">
                 <h1 style="margin:auto;text-align:center;">${presetName}</h1>
-                <button style='top:80%;left:-20px;position:absolute;text-align:center;' onclick='document.querySelector(".customPreset${presetNum}").style.display="none";'><image style='width:20px;height:20px;' src='https://cdn4.iconfinder.com/data/icons/primitive/512/trash_can-512.png'></button></div>`
+                <button style='top:80%;left:-20px;position:absolute;text-align:center;' onclick='deletePreset(${presetNum})'><image style='width:20px;height:20px;' src='https://cdn4.iconfinder.com/data/icons/primitive/512/trash_can-512.png'></button></div>`
                     customMenuHTML = document.querySelector('.customGameModeMenu').innerHTML;
-                    localStorage.setItem('customMenuHTML', customMenuHTML);
+                    let customMenuHTMLJSON = JSON.stringify(customMenuHTML);
+                    localStorage.setItem('customMenuHTML', customMenuHTMLJSON);
+                }
+
+                function deletePreset(presetId) {
+                    console.log(`preset deleted num = ${presetId}`)
+                    document.querySelector(`.customPreset${presetId}`).style.display="none";
+                    bannedPresets.push(Number(presetId));
+                    localStorage.setItem('customPresetsJSON', JSON.stringify(customPresets));
+                    localStorage.setItem('bannedPresetsJSON', JSON.stringify(bannedPresets))
                 }
 
             function createCustomPreset() {
@@ -1433,7 +1511,22 @@
                let spell2;
                let spell3;
                let spell4;
+               let roundRecord;
+               let roundRecordTest = localStorage.getItem('roundRecord');
+               if (roundRecordTest) {
+                roundRecord = JSON.parse(roundRecordTest);
+               } else {
+                roundRecord = 0;
+               }
+                let gameMode;
+                let subGameMode;
+                let difficulty;
+
                let zCredits = 10;
+               let zCreditsStorage = localStorage.getItem('zCreditsJSON')
+               if (zCreditsStorage) {
+                 zCredits = JSON.parse(zCreditsStorage)
+               }
                let avatarPhoto = 'none';
                let avatarColor = 'red';
                let gridBackgroundColor = 'lightgray';
@@ -1516,9 +1609,7 @@
                 control (either move or stop an enemy from moving when "dash" or "move" is used),
                 remote (remotely attack anything from anywhere on the map)
                 */
-let gameMode;
-let subGameMode;
-let difficulty;
+
                     /*Gamemodes*/
                     function multiplayerSelected() {
                         gameMode='multiplayer';
@@ -2216,115 +2307,19 @@ let ability;
                         }
                         document.body.addEventListener('keydown', (keyPressed) => {
                             if (points >= 2 || dashCallCheck === 'true') {
-                            checkKey();
+                            checkKey(keyPressed);
                             } else if (keyPressed.key === 'ArrowUp'||keyPressed.key === 'ArrowDown'||keyPressed.key === 'ArrowRight'||keyPressed.key === 'ArrowLeft'||keyPressed.key === ','||keyPressed.key === '.'||keyPressed.key === '/'||keyPressed.key === ';') {
                                 document.querySelector('.barrierAlert').innerHTML = 'Not enough points!';
                                 setTimeout(() => {
                                                 document.querySelector('.barrierAlert').innerHTML = '';
                                             }, 3000);
                             }
-                            /*Standard abilities (walk and punch)*/
-                            function checkKey() {
-                                
-                                if (keyPressed.key === 'ArrowUp') {
-                                walkDirection = -8;
-                                arrowBtnCheck = 'true';
-                                }
-                                if (keyPressed.key === 'ArrowDown') {
-                                walkDirection = 8;
-                                arrowBtnCheck = 'true';
-                                }
-                                if (keyPressed.key === 'ArrowRight') {
-                                walkDirection = 1;
-                                arrowBtnCheck = 'true';
-                                }
-                                if (keyPressed.key === 'ArrowLeft') {
-                                walkDirection = -1;
-                                arrowBtnCheck = 'true';
-                                }
 
-                                if (arrowBtnCheck === 'true') {
-                                    arrowBtnCheck = 'false';
-                                    movePlayer();
-                                    function movePlayer() {
-                                for (let u=0; u<64; u++) {
-                                let area = grid[u];
-                                if (area.barrier === 'player' || area.barrier === 'playerGhost') {
-                                    let playerPos = Number(area.gridNum + walkDirection)
-                                        if ((playerPos < 0 || playerPos > 63)||(walkDirection === 1 && (playerPos === 8 || playerPos === 16 || playerPos === 24 || playerPos === 32 || playerPos === 40 || playerPos === 48 || playerPos === 56))||(walkDirection === -1 && (playerPos === 7 || playerPos === 15 || playerPos === 23 || playerPos === 31 || playerPos === 39 || playerPos === 47 || playerPos === 55))) {
-                                            document.querySelector('.barrierAlert').innerHTML = 'You cannot move outside the map.'
-                                            setTimeout(() => {
-                                                document.querySelector('.barrierAlert').innerHTML = '';
-                                            }, 3000);
-                                            break;
-                                        }
-                                        if (grid[playerPos].barrier === 'enemy' || grid[playerPos].barrier === 'enemyGhost') {
-                                            document.querySelector('.barrierAlert').innerHTML = 'You cannot move through enemies.';
-                                                setTimeout(() => {
-                                                document.querySelector('.barrierAlert').innerHTML = '';
-                                            }, 3000);
-                                                break;
-                                        }
-                                        if (replaceBarrier === 'true') {
-                                        area.barrier = 'true';
-                                        document.querySelector(`.gridNumber${area.gridNum}`).style.backgroundColor = gridBarrierColor;
-                                        document.querySelector(`.gridNumber${area.gridNum}`).innerHTML=''
-                                        replaceBarrier = 'false';
-                                        }
-                                        if (ability === 'transfusion') {
-                                            if (grid[playerPos].barrier === 'true') {
-                                                replaceBarrier = 'true';
-                                            }
-                                            if (area.barrier !== 'true') {
-                                                area.barrier = 'false';
-                                                document.querySelector(`.gridNumber${area.gridNum}`).style.backgroundColor = gridBackgroundColor;
-                                                document.querySelector(`.gridNumber${area.gridNum}`).innerHTML='';
-                                            }
-                                        } else if (grid[playerPos].barrier === 'true') {
-                                                document.querySelector('.barrierAlert').innerHTML = 'You cannot move through barriers.';
-                                                setTimeout(() => {
-                                                document.querySelector('.barrierAlert').innerHTML = '';
-                                            }, 3000);
-                                                break;
-                                            }
-                                            else {
-                                                area.barrier = 'false';
-                                                document.querySelector(`.gridNumber${area.gridNum}`).style.backgroundColor = gridBackgroundColor;
-                                                document.querySelector(`.gridNumber${area.gridNum}`).innerHTML=''
-                                            }
-                                            ////
-                                            if (area.item !== 'none') {
-                                                itemObtained(area.item);
-                                                area.item = 'none'
-                                            }
-                                            ////
-                                        grid[playerPos].barrier = 'player';
-                                        document.querySelector(`.gridNumber${playerPos}`).style.backgroundColor = avatarColor;
-                                        if (avatarPhoto !== 'none') {
-                                        document.querySelector(`.gridNumber${playerPos}`).innerHTML= `<image class='avatarPic' src='${avatarPhoto}'>`
-                                        }
-                                        if (playerGhostPresence === 'true') {
-                            document.querySelector(`.gridNumber${playerPos}`).style.backgroundColor = 'rgba(255, 0, 0, 0.539)';
-                            grid[playerPos].barrier = 'playerGhost';
-                        };
-                                if (dashCallCheck === 'false') {
-                                        points = points - 2;
-                                        updateStats();
-                                        break;}
-                                       else if (dashCallCheck === 'sub') {
-                                dashCallCheck = 'false';
-                                break;
+                            if (/Mobi/i.test(navigator.userAgent)) {
+                                document.querySelector('.mobileArrowsDiv').style.display = 'block';
                             }
-                            break;
-                                        }}
-                                if (dashCallCheck === 'true') {
-                                dashCallCheck = 'sub';
-                                movePlayer();
-                            }
-                                    }
-                            }
-                            }
-                        
+                            /*Standard abilities (walk and punch)*/
+                            
                                 if (keyPressed.key === ';') {
                                     wasdBtnCheck = 'true';
                                     punchDirection = -8
@@ -2408,6 +2403,112 @@ let ability;
                                 }
             })
                     pushEnemySpawn(); enemyAlgorithm(); goToGame(); loadPuzzles();}
+
+                    function checkKey(keyPressed) {
+                                
+                                if (keyPressed.key === 'ArrowUp') {
+                                walkDirection = -8;
+                                arrowBtnCheck = 'true';
+                                }
+                                if (keyPressed.key === 'ArrowDown') {
+                                walkDirection = 8;
+                                arrowBtnCheck = 'true';
+                                }
+                                if (keyPressed.key === 'ArrowRight') {
+                                walkDirection = 1;
+                                arrowBtnCheck = 'true';
+                                }
+                                if (keyPressed.key === 'ArrowLeft') {
+                                walkDirection = -1;
+                                arrowBtnCheck = 'true';
+                                }
+
+                                if (arrowBtnCheck === 'true') {
+                                    arrowBtnCheck = 'false';
+                                    movePlayer();
+                            }}
+                            function movePlayer() {
+                                if (points > 1) {
+                                for (let u=0; u<64; u++) {
+                                let area = grid[u];
+                                if (area.barrier === 'player' || area.barrier === 'playerGhost') {
+                                    let playerPos = Number(area.gridNum + walkDirection)
+                                        if ((playerPos < 0 || playerPos > 63)||(walkDirection === 1 && (playerPos === 8 || playerPos === 16 || playerPos === 24 || playerPos === 32 || playerPos === 40 || playerPos === 48 || playerPos === 56))||(walkDirection === -1 && (playerPos === 7 || playerPos === 15 || playerPos === 23 || playerPos === 31 || playerPos === 39 || playerPos === 47 || playerPos === 55))) {
+                                            document.querySelector('.barrierAlert').innerHTML = 'You cannot move outside the map.'
+                                            setTimeout(() => {
+                                                document.querySelector('.barrierAlert').innerHTML = '';
+                                            }, 3000);
+                                            break;
+                                        }
+                                        if (grid[playerPos].barrier === 'enemy' || grid[playerPos].barrier === 'enemyGhost') {
+                                            document.querySelector('.barrierAlert').innerHTML = 'You cannot move through enemies.';
+                                                setTimeout(() => {
+                                                document.querySelector('.barrierAlert').innerHTML = '';
+                                            }, 3000);
+                                                break;
+                                        }
+                                        if (replaceBarrier === 'true') {
+                                        area.barrier = 'true';
+                                        document.querySelector(`.gridNumber${area.gridNum}`).style.backgroundColor = gridBarrierColor;
+                                        document.querySelector(`.gridNumber${area.gridNum}`).innerHTML=''
+                                        replaceBarrier = 'false';
+                                        }
+                                        if (ability === 'transfusion') {
+                                            if (grid[playerPos].barrier === 'true') {
+                                                replaceBarrier = 'true';
+                                            }
+                                            if (area.barrier !== 'true') {
+                                                area.barrier = 'false';
+                                                document.querySelector(`.gridNumber${area.gridNum}`).style.backgroundColor = gridBackgroundColor;
+                                                document.querySelector(`.gridNumber${area.gridNum}`).innerHTML='';
+                                            }
+                                        } else if (grid[playerPos].barrier === 'true') {
+                                                document.querySelector('.barrierAlert').innerHTML = 'You cannot move through barriers.';
+                                                setTimeout(() => {
+                                                document.querySelector('.barrierAlert').innerHTML = '';
+                                            }, 3000);
+                                                break;
+                                            }
+                                            else {
+                                                area.barrier = 'false';
+                                                document.querySelector(`.gridNumber${area.gridNum}`).style.backgroundColor = gridBackgroundColor;
+                                                document.querySelector(`.gridNumber${area.gridNum}`).innerHTML=''
+                                            }
+                                            ////
+                                            if (area.item !== 'none') {
+                                                itemObtained(area.item);
+                                                area.item = 'none'
+                                            }
+                                            ////
+                                        grid[playerPos].barrier = 'player';
+                                        document.querySelector(`.gridNumber${playerPos}`).style.backgroundColor = avatarColor;
+                                        if (avatarPhoto !== 'none') {
+                                        document.querySelector(`.gridNumber${playerPos}`).innerHTML= `<image class='avatarPic' src='${avatarPhoto}'>`
+                                        }
+                                        if (playerGhostPresence === 'true') {
+                            document.querySelector(`.gridNumber${playerPos}`).style.backgroundColor = 'rgba(255, 0, 0, 0.539)';
+                            grid[playerPos].barrier = 'playerGhost';
+                        };
+                                if (dashCallCheck === 'false') {
+                                        points = points - 2;
+                                        updateStats();
+                                        break;}
+                                       else if (dashCallCheck === 'sub') {
+                                dashCallCheck = 'false';
+                                break;
+                            }
+                            break;
+                                        }}
+                                if (dashCallCheck === 'true') {
+                                dashCallCheck = 'sub';
+                                movePlayer();
+                            }} else {document.querySelector('.barrierAlert').innerHTML = 'Not enough points!'
+                        setTimeout(() => {
+                            document.querySelector('.barrierAlert').innerHTML = ``;
+                        }, 3000);}
+                        }
+
+   
                     /*Enemy Generation*/
                     let enemiesKilled = 0;
                     let enemyCount = 4; 
@@ -2524,7 +2625,7 @@ let ability;
                             grid[randomItemPositionNum].item = collectible.name;
                             document.querySelector(`.gridNumber${randomItemPositionNum}`).style.backgroundColor = 'teal'
                             document.querySelector(`.gridNumber${randomItemPositionNum}`).innerHTML = `<image style='width:100%;height:100%;' src='${collectible.image}''>`
-                        } else generateItem();}
+                        } else generateItem()}
                     })}
                 }}};
                     function pushEnemySpawn() {
@@ -2681,6 +2782,7 @@ let ability;
                                     if (grid[randomPosition].barrier === 'player' || grid[randomPosition].barrier === 'playerGhost') {
                                         if (gooseSpotsNum === 2) {
                                             round++;
+                                            clearInterval(countdown)
                                             gooseSpotsNum = 0;
                                            selectEnemySet();
                                         } else {
@@ -2757,8 +2859,6 @@ let ability;
                             addEnemies();
                             zombieRay = setInterval(()=>{
                                 ////////////////
-                                let stopRight = 'false';
-                        let stopLeft = 'false';
                 for (let u=0; u<64; u++) {
                 let GridArea = grid[u];
                     if (GridArea.barrier === 'player') {
@@ -2796,7 +2896,8 @@ let ability;
                                     secondaryEnemyAttackSpeed = type.secondaryAttackSpeed;
                                 }})
                             addEnemies()},20000);
-                    }
+                    
+                        }
                         /*Spells In-game*/
                     
                         document.querySelectorAll('.executeSpell1').forEach((execution)=>execution.addEventListener('click', () =>{callSpell1()}))
@@ -3714,7 +3815,7 @@ let ability;
                     swordSquarePositionIdentifier = 1;
                     conjureSword();
                 })
-                    
+                
                 //Ghost function
                 let ghostTimeout;
                     function conjureGhost() {
@@ -4026,6 +4127,26 @@ let ability;
                         }
                     
 
+                function RandomizeSpells() {
+                let spell1RandomNum = Math.floor(Math.random()*9);
+                let spell2RandomNum = Math.floor(Math.random()*9);
+                let spell3RandomNum = Math.floor(Math.random()*9);
+                let spell4RandomNum = Math.floor(Math.random()*9);
+
+                document.getElementById(`spellDropdown1`).value = spells[Math.floor(Math.random()*9)].name;
+                document.getElementById(`spellDropdown2`).value = spells[Math.floor(Math.random()*9)].name;
+                document.getElementById(`spellDropdown3`).value = spells[Math.floor(Math.random()*9)].name;
+                document.getElementById(`spellDropdown4`).value = spells[Math.floor(Math.random()*9)].name;
+
+                checkSpell1();
+                checkSpell2();
+                checkSpell3();
+                checkSpell4();
+                document.querySelector('.spellSection').style.height = '800px';
+                document.querySelector('.descriptionsTitle').innerHTML = 'Descriptions';
+                }
+
+
                         /*
                     document.querySelector('.invincibleCheat').addEventListener('click', ()=>{
                         grid.forEach((player)=>{
@@ -4034,6 +4155,8 @@ let ability;
                 player.barrier = 'playerGhost';
             }})})
                 */
+
+
             /*items*/
 let itemCollectionCount = 0;
 const items = [{
@@ -4227,26 +4350,30 @@ if (gameMode !== 'protect the zone') {
     }
 }]
 let itemCountNum = 0;
+let itemDescrpiton = ``
 //when updating, make the maximum item count 4, and make width and height 45%
     function itemObtained(passedItemName) {
-        itemCountNum++;
-        if (itemCountNum < 2) {
+        console.log(`name = ${passedItemName}`);
+        if (itemCountNum === 0) {
+            itemCountNum++;
     items.forEach((collectible)=>{
         if (collectible.name === passedItemName) {
             let randomItemUPI = (Math.random()*10000).toFixed(0);
-            let descrpiton = collectible.des;
+            itemDescrpiton = collectible.des;
             console.log(`generated = ${randomItemUPI}`)
             document.querySelector('.itemsDiv').innerHTML += `<div class='collectedItemDivs item${randomItemUPI}'><image style='width:100%;height:100%;' src="${collectible.image}" alt="${collectible.name}"></div>`;
-                const itemDiv = document.querySelector(`.item${randomItemUPI}`)
+                let itemDiv = document.querySelector(`.item${randomItemUPI}`)
                 itemDiv.addEventListener('click', ()=>{
+                    console.log(itemDiv);
+                    console.log(collectible.itemF())
                     collectible.itemF();
                     itemDiv.style.display = 'none';
                     itemCountNum--;
-                    descrpiton = ``
+                    descrpiton = ``;
                 })
                 itemDiv.addEventListener('mouseover', ()=>{
                     document.querySelector(`.collectedItemDes`).style.display = 'block';
-                    document.querySelector(`.itemDesTxt`).innerHTML = `${descrpiton}`;
+                    document.querySelector(`.itemDesTxt`).innerHTML = `${itemDescrpiton}`;
                     //document.querySelector('.collectedItemDes').style.top = Number(document.querySelector(`.item${randomItemUPI}`).getBoundingClientRect().y + 100).toFixed(0) + 'px'
                     //document.querySelector('.collectedItemDes').style.left = Number(document.querySelector(`.item${randomItemUPI}`).getBoundingClientRect().x).toFixed(0) + 'px'
                 })
@@ -4262,7 +4389,7 @@ let itemCountNum = 0;
         }}
                 document.querySelector('.itemsDiv').addEventListener('mouseover', ()=>{
                     document.querySelector(`.collectedItemDes`).style.display = 'block';
-                    document.querySelector(`.itemDesTxt`).innerHTML = `${descrpiton}`;
+                    document.querySelector(`.itemDesTxt`).innerHTML = `${itemDescrpiton}`;
                 })
                 document.querySelector('.itemsDiv').addEventListener('mouseleave', ()=>{
                     document.querySelector(`.collectedItemDes`).style.display = 'none';
@@ -4270,7 +4397,7 @@ let itemCountNum = 0;
 
                 document.querySelector('.collectedItemDes').addEventListener('mouseover', ()=>{
                     document.querySelector(`.collectedItemDes`).style.display = 'block';
-                    document.querySelector(`.itemDesTxt`).innerHTML = `${descrpiton}`;
+                    document.querySelector(`.itemDesTxt`).innerHTML = `${itemDescrpiton}`;
                 })
                 document.querySelector('.collectedItemDes').addEventListener('mouseleave', ()=>{
                     document.querySelector(`.collectedItemDes`).style.display = 'none';
@@ -4654,9 +4781,10 @@ if ((gameMode === 'endless' && subGameMode !== 'timed points') || gameMode === '
     <p>Worth: ${puzzlePoints} points</p>
     <button onclick='skipPuzzle()'>Skip</button>
     ${displayedPuzzle}`;
+    if (subGameMode === 'custom' && gameMode === 'endless') {} else {
     if (randomPuzzleNum === 7 || randomPuzzleNum === 8) {
         puzzleFunction();
-    }
+    }}
 }}
 
 function skipPuzzle() {
@@ -4694,18 +4822,42 @@ function updateStats() {
     document.querySelector('.ingame-zCredits').innerHTML = `zCredits: ${zCredits}`;
     document.querySelector('.enemies-killed').innerHTML = `Total # of Enemies Killed: ${totalEnemiesKilled}`;
     document.querySelector(".round-count").innerHTML = `Round ${round}`;
+    document.querySelector('.round-record').innerHTML = `Record: Round ${roundRecord}`;
+}
 
+function checkRewardCode() {
+    let rewardCodeInput = document.querySelector('.rewardCodeInput').value
+    if (rewardCodeInput === 'test') {
+        zCredits++;
+    } else {
+        alert('Code Invalid')
+    }
+    let zCreditsStorage = JSON.stringify(zCredits);
+    localStorage.setItem('zCreditsJSON', zCreditsStorage);
+    updateStats();
+    document.querySelector('.zCreditsReminder').innerHTML = `zCredits: ${zCredits}`
+}
+
+function restartAccount() {
+    if (confirm('Are you sure you want to completely reset your account?')) {
+        localStorage.clear();
+        location.reload(true);
+    }
 }
 
 function gameOver() {
-    setInterval(() => {
-    alert('Game Over');
-    },1000);
+    if (subGameMode !== 'custom' && gameMode !== 'endless') {
+    if (round > roundRecord) {
+        roundRecord = round;
+        localStorage.setItem('roundRecord', JSON.stringify(roundRecord));
+    }
+    zCredits += round - 1;
+    localStorage.setItem('zCreditsJSON', zCredits);
+}
     setTimeout(() => {
-        window.close();
-        document.querySelector('.zombieFace').style.backgroundColor = 'black';
-        document.querySelector('.zombieFace').style.display = 'block';
-    },1003)
+    alert('Game Over');
+    location.reload(true)
+    },1000);
 }        
 let deathInsuranceUsage = 'false'
 function deathInsuranceCheck() {
