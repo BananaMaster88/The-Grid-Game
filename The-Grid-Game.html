@@ -2305,6 +2305,9 @@ let ability;
                             }
                         }})
                         }
+                            if (/Mobi/i.test(navigator.userAgent)) {
+                                document.querySelector('.mobileArrowsDiv').style.display = 'block';
+                            }
                         document.body.addEventListener('keydown', (keyPressed) => {
                             if (points >= 2 || dashCallCheck === 'true') {
                             checkKey(keyPressed);
@@ -2313,10 +2316,6 @@ let ability;
                                 setTimeout(() => {
                                                 document.querySelector('.barrierAlert').innerHTML = '';
                                             }, 3000);
-                            }
-
-                            if (/Mobi/i.test(navigator.userAgent)) {
-                                document.querySelector('.mobileArrowsDiv').style.display = 'block';
                             }
                             /*Standard abilities (walk and punch)*/
                             
