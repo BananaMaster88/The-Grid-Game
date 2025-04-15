@@ -82,8 +82,8 @@
                 }
                 100%{
                     transform:rotate(-140deg);
-                    left:700px;
-                    top:700px;
+                    left:1000px;
+                    top:950px;
                 }
             }
             .iaTitle {
@@ -166,7 +166,7 @@
         <div class="iaColorChange iaTower"></div>
             </div>
         <script>
-            for (e=1;e<100;e++) {
+            for (e=1;e<1001;e++) {
                 document.querySelector('.iaTower').innerHTML += '<div class="iaTowerGrid"></div>'
             };
             setTimeout(()=>{
@@ -217,10 +217,10 @@
                     document.querySelector('.iaP').style.animation = 'iATumble 500ms linear forwards 1';
                     setTimeout(()=>{
                         document.querySelector('.iaColorChange').style.backgroundColor = 'purple';
-                        document.querySelector('.iaP').style.animation = 'iAPslide cubic-bezier(0.9, 0.19, 0.79, 0.58) 1s forwards 1';
+                        document.querySelector('.iaP').style.animation = 'iAPslide cubic-bezier(0.9, 0.19, 0.79, 0.58) 0.7s forwards 1';
                         setTimeout(()=>{
                             leaveStartPage();
-                        },1000)
+                        },700)
                     },500)
                 })
             },6500)
