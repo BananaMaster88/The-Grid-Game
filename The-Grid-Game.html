@@ -2305,7 +2305,7 @@ let ability;
                             }
                         }})
                         }
-                            if (/Mobi/i.test(navigator.userAgent)) {
+                            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
                                 document.querySelector('.mobileArrowsDiv').style.display = 'block';
                             }
                         document.body.addEventListener('keydown', (keyPressed) => {
