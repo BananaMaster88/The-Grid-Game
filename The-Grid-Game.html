@@ -2327,14 +2327,14 @@ let ability;
                             square.barrier = 'player';
                             document.querySelector(`.gridNumber${square.gridNum}`).style.backgroundColor = avatarColor;
                             if (avatarPhoto !== 'none') {
-                            document.querySelectorAll(`.gridNumber${square.gridNum}`).forEach((mobileAccess)=>{
-                                mobileAccess.innerHTML = `<image class='avatarPic' src='${avatarPhoto}'>`
-                            })
+                            document.querySelector(`.gridNumber${square.gridNum}`).innerHTML = `<image class='avatarPic' src='${avatarPhoto}'>`
                             }
                         }})
                         }
                         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                                document.querySelector('.mobileArrowsDiv').style.display = 'block';
+                                document.querySelectorAll('.mobileArrowsDiv').forEach((mobileAccess)=>{
+                                    mobileAccess.style.display = 'block';
+                                })
                             }
                         document.body.addEventListener('keydown', (keyPressed) => {
                             if (points >= 2 || dashCallCheck === 'true') {
