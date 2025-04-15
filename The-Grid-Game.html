@@ -176,6 +176,7 @@
                     float:left;
                 }
                     .goToGameBtn {
+                        z-index: 3;
                         position: relative;
                         margin:auto;
                         margin-top: 30px;
@@ -326,7 +327,7 @@
                     }
                 .spellsForGame {
                     width:100%;
-                    height:70vh;
+                    height:70%;
                     border-color: black;
                     border-width: 3px;
                     border-radius: 2%;
@@ -377,14 +378,14 @@
                 .usablesColumn {
                     position:relative;
                     float:left;
-                    width:12%;
-                    height:100%;
+                    width:150px;
+                    height:800px;
                     margin:1%;
                 }
                 .itemsDiv {
                     position:relative;
                     display:inline-block;
-                    height:25vh;
+                    height:25%;
                     width:100%;
                     margin:5px;
                     border: 2px solid black;
@@ -2860,7 +2861,6 @@ let ability;
                                 document.querySelector('.zombieFace').style.display = 'none';
                             addEnemies();
                             zombieRay = setInterval(()=>{
-                                ////////////////
                 for (let u=0; u<64; u++) {
                 let GridArea = grid[u];
                     if (GridArea.barrier === 'player') {
@@ -2885,7 +2885,6 @@ let ability;
                         }})
                     }
                 }},3000)   },5000)
-                                ////////////////
                             setTimeout(()=>{
                         enemyType.forEach((type) => {
                                 if (type.name === 'husk') {
