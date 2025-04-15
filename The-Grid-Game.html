@@ -98,7 +98,7 @@
                 margin-top:3%;
                 position: relative;
                 float:left;
-        }
+           }
                 .multiplayerGameMode {
                     color:rgb(230, 71, 71);
                     cursor: pointer;
@@ -794,6 +794,15 @@
     height:205px;
     width:110px;
 }
+.mobilePunchDiv {
+    position:absolute;
+    float:left;
+    left:350px;
+    top:200px;
+    height:210px;
+    width:350px;
+    display:none;
+}
     </style>
     </head>
     <body class="fullscreen">
@@ -1320,6 +1329,19 @@
                 </div>
             <div class="mobileArrowsOutsideBox" style="margin-top:110px;" onclick="walkDirection=1; movePlayer()">
             <div class="mobileArrows mobileRight" style="rotate:180deg;"><img style="height:100%;width:100%;" src='https://cdn-icons-png.flaticon.com/512/46/46441.png'></div></div>
+        </div>
+        <div class="mobileArrowsDiv mobilePunchDiv">
+            <div class="mobileArrowsOutsideBox" style="margin-top:110px" onclick="punchDirection=-1; playerPunch()">
+            <div class="mobileArrows punchLeft"><img style="height:100%;width:100%;" src='https://pngimg.com/d/fist_PNG2.png'></div></div>
+                <div class="mobileArrowsUpANDDown">
+            <div class="mobileArrowsOutsideBox" onclick="punchDirection=-8; playerPunch()">
+            <div class="mobileArrows punchUp"><img style="height:100%;width:100%;rotate:90deg;" src='https://pngimg.com/d/fist_PNG2.png'></div></div>
+            
+            <div class="mobileArrowsOutsideBox" onclick="punchDirection=8; playerPunch()">
+            <div class="mobileArrows punchDown"><img style="height:100%;width:100%;rotate:270deg;" src='https://pngimg.com/d/fist_PNG2.png'></div></div>
+                </div>
+            <div class="mobileArrowsOutsideBox" style="margin-top:110px;" onclick="punchDirection=1; playerPunch()">
+            <div class="mobileArrows punchRight" style="rotate:180deg;"><img style="height:100%;width:100%;" src='https://pngimg.com/d/fist_PNG2.png'></div></div>
         </div>
         </div>
     </div>
@@ -2305,7 +2327,9 @@ let ability;
                             square.barrier = 'player';
                             document.querySelector(`.gridNumber${square.gridNum}`).style.backgroundColor = avatarColor;
                             if (avatarPhoto !== 'none') {
-                            document.querySelector(`.gridNumber${square.gridNum}`).innerHTML = `<image class='avatarPic' src='${avatarPhoto}'>`
+                            document.querySelectorAll(`.gridNumber${square.gridNum}`).forEach((mobileAccess)=>{
+                                mobileAccess.innerHTML = `<image class='avatarPic' src='${avatarPhoto}'>`
+                            })
                             }
                         }})
                         }
@@ -2323,7 +2347,47 @@ let ability;
                             }
                             /*Standard abilities (walk and punch)*/
                             
-                                if (keyPressed.key === ';') {
+                   
+                                if (keyPressed.key === '!') {
+                                    callSpell1();
+                                }
+                                if (keyPressed.key === '@') {
+                                    callSpell2();
+                                }
+                                if (keyPressed.key === '#') {
+                                    callSpell3();
+                                }
+                                if (keyPressed.key === '$') {
+                                    callSpell4();
+                                }
+            })
+                    pushEnemySpawn(); enemyAlgorithm(); goToGame(); loadPuzzles();}
+
+                    function checkKey(keyPressed) {
+                                
+                                if (keyPressed.key === 'ArrowUp') {
+                                walkDirection = -8;
+                                arrowBtnCheck = 'true';
+                                }
+                                if (keyPressed.key === 'ArrowDown') {
+                                walkDirection = 8;
+                                arrowBtnCheck = 'true';
+                                }
+                                if (keyPressed.key === 'ArrowRight') {
+                                walkDirection = 1;
+                                arrowBtnCheck = 'true';
+                                }
+                                if (keyPressed.key === 'ArrowLeft') {
+                                walkDirection = -1;
+                                arrowBtnCheck = 'true';
+                                }
+
+                                if (arrowBtnCheck === 'true') {
+                                    arrowBtnCheck = 'false';
+                                    movePlayer();
+                            }
+                            
+                            if (keyPressed.key === ';') {
                                     wasdBtnCheck = 'true';
                                     punchDirection = -8
                                 }
@@ -2341,7 +2405,12 @@ let ability;
                                 }
 
                                 if (wasdBtnCheck === 'true') {
-                                    if (points >= 2) {
+                                    wasdBtnCheck = 'false';
+                                    playerPunch();
+                        }
+                        }
+                            function playerPunch() {
+                            if (points >= 2) {
                 for (let u=0; u<64; u++) {
                 let area = grid[u];
                     if (area.barrier === 'player') {
@@ -2391,45 +2460,7 @@ let ability;
                                 document.querySelector('.barrierAlert').innerHTML = '';
                             }, 3000);
                 }}
-                    
-                                if (keyPressed.key === '!') {
-                                    callSpell1();
-                                }
-                                if (keyPressed.key === '@') {
-                                    callSpell2();
-                                }
-                                if (keyPressed.key === '#') {
-                                    callSpell3();
-                                }
-                                if (keyPressed.key === '$') {
-                                    callSpell4();
-                                }
-            })
-                    pushEnemySpawn(); enemyAlgorithm(); goToGame(); loadPuzzles();}
-
-                    function checkKey(keyPressed) {
-                                
-                                if (keyPressed.key === 'ArrowUp') {
-                                walkDirection = -8;
-                                arrowBtnCheck = 'true';
-                                }
-                                if (keyPressed.key === 'ArrowDown') {
-                                walkDirection = 8;
-                                arrowBtnCheck = 'true';
-                                }
-                                if (keyPressed.key === 'ArrowRight') {
-                                walkDirection = 1;
-                                arrowBtnCheck = 'true';
-                                }
-                                if (keyPressed.key === 'ArrowLeft') {
-                                walkDirection = -1;
-                                arrowBtnCheck = 'true';
-                                }
-
-                                if (arrowBtnCheck === 'true') {
-                                    arrowBtnCheck = 'false';
-                                    movePlayer();
-                            }}
+                        
                             function movePlayer() {
                                 if (points > 1) {
                                 for (let u=0; u<64; u++) {
