@@ -764,10 +764,13 @@
 }
 .mobileArrowsDiv {
     position:absolute;
-    float:right;
+    float:left;
+    left:0;
+    top:200px;
     height:210px;
     width:350px;
     display:none;
+
 }
 .mobileArrows {
     margin:auto;
@@ -1289,7 +1292,7 @@
         <div class="itemsDiv"></div>
         <div class='collectedItemDes'><p class='itemDesTxt' style='color:white;'></p></div>
     </div>
-        
+      
         
         <div class="puzzleGames"></div>
 
@@ -2305,7 +2308,7 @@ let ability;
                             }
                         }})
                         }
-                            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
                                 document.querySelector('.mobileArrowsDiv').style.display = 'block';
                             }
                         document.body.addEventListener('keydown', (keyPressed) => {
@@ -4328,7 +4331,7 @@ if (gameMode !== 'protect the zone') {
 },{
     name:'cheat',
     des:'get the answer to a puzzle question',
-    image:`https://cdn.creazilla.com/cliparts/15591812/magnifying-glass-clipart-md.png`,
+    image:`https://png.pngtree.com/png-vector/20221006/ourmid/pngtree-cartoon-magnifying-glass-illustration-png-image_6288980.png`,
     itemF: ()=>{ 
         document.querySelector('.cheatSheetDiv').style.display = 'block';
         document.querySelector('.cheatSheetDiv').classList.add('cheatSheetAnim1')
