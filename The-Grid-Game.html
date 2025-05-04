@@ -373,6 +373,7 @@
                     margin:5px;
                     border: 2px solid black;
                     background-color: lightblue;
+                    margin-bottom:10px;
                 }
 
                 .usablesColumn {
@@ -1003,16 +1004,18 @@
         <h3>Enter question below</h3><input placeholder="Question" id='customQuestionInput'>
         <h3>Enter answer below</h3><input placeholder="Answer" id='customAnswerInput'>
         <h3>Enter worth below</h3><input placeholder="Worth" id="customWorthInput">
-        <button onclick=" 
+        <button onclick="
         customQuestions.push({
-            html: `<h3>${document.getElementById('customQuestionInput').value}</h3><input placeholder='Answer' class='puzzleInput${customQuestionNum}'><button onclick='checkPuzzleInput()'>submit</button>`,
+            reveal: 'false',
+            html: `<h3>${document.getElementById('customQuestionInput').value}</h3><input placeholder='Answer' class='puzzleInput${customQuestionNum}'><button onclick='checkPuzzleInput()'>submit</button><p style='color:grey;' class='customRevealAlert'></p>`,
             answer: `${document.getElementById('customAnswerInput').value}`,
             num: customQuestionNum,
             worth: Number(document.getElementById('customWorthInput').value),
             dif:'undefined',
             puzzleF: () => {checkPuzzleInput()}
         });
-        customQuestionNum++; console.log(customQuestions)">Submit</button>
+        customQuestionNum++; console.log(customQuestions); if(revealAns==='true'){toggleCustomReveal();}">Submit</button>
+        <button class="toggleCustomRevealClass" onclick="toggleCustomReveal();">Reveal answer if incorrect</button>
         <h3>Enter Preset Name</h3>
         <input placeholder="Preset Name" id="presetName">
         <button onclick="customQuestionNum=0; finishCustomPreset()">Finish Preset</button>
@@ -1351,24 +1354,30 @@
             let customPresets = [];
             let presetNum = -1;
             let bannedPresets = [];
+            let revealAns = 'false';
+            let checkCAR = 'false';
 
+            try {
             let customMenuHTMLStorage = localStorage.getItem('customMenuHTML');
             if (customMenuHTMLStorage) {
-                document.querySelector('.customGameModeMenu').innerHTML = JSON.parse(customMenuHTMLStorage)
-            }
+                document.querySelector('.customGameModeMenu').innerHTML = JSON.parse(customMenuHTMLStorage)}
+        } catch (error) {}
 
+            try {
             let presetNumStorage = localStorage.getItem('presetNumJSON');
             if (presetNumStorage) {
             presetNum = JSON.parse(presetNumStorage);
-            } else {
-            presetNum = -1;
-            }
+            } else {presetNum = -1}
+        } catch (error) {}
 
+            try {
             let customPresetsStorage = localStorage.getItem('customPresetsJSON')
             if (customPresetsStorage) {
             customPresets = JSON.parse(customPresetsStorage);
             }
+        } catch (error) {}
 
+        try {
             let bannedPresetsStorage = localStorage.getItem('bannedPresetsJSON')
             if (bannedPresetsStorage) {
                 bannedPresets = JSON.parse(bannedPresetsStorage)
@@ -1376,6 +1385,7 @@
                     document.querySelector(`.customPreset${bannedP}`).style.display = 'none';
                 })
             }
+        } catch (error) {}
 
             function finishCustomPreset() {
                 presetName = document.getElementById('presetName').value;
@@ -1413,6 +1423,16 @@
                 document.querySelector('.customPresetMaker').style.display = 'block';
                 presetName = 'My Preset';
                 presetNum++;
+            }
+            
+            function toggleCustomReveal() {
+                if (revealAns === 'false') {
+                revealAns='true';
+                customQuestions.forEach((ques)=>{ques.reveal='true';})
+                document.querySelector('.toggleCustomRevealClass').innerHTML = 'Hide answer if incorrect';} else {
+                revealAns='false';
+                customQuestions.forEach((ques)=>{ques.reveal='false';})
+                document.querySelector('.toggleCustomRevealClass').innerHTML = 'Reveal answer if incorrect';}
             }
             let bypass = 'false'
             let talkingBtnEvent = Number(Math.random()*100);
@@ -2257,7 +2277,9 @@ let ability;
                         } else {
                             moveToInteractableGame()
                         }}
-                        function moveToInteractableGame() {
+                        ////////////////////////
+                        ////////////////////////
+                        async function moveToInteractableGame() {
                         /*if (difficulty === 'Hard') {
                             console.log('hard mode active');
                             ability = 'none';
@@ -2360,8 +2382,10 @@ let ability;
                                     callSpell4();
                                 }
             })
-                    pushEnemySpawn(); enemyAlgorithm(); goToGame(); loadPuzzles();}
-
+                    await Promise.all([pushEnemySpawn(), enemyAlgorithm(), goToGame(), loadPuzzles()])
+                }
+                        ////////////////////////
+                        ////////////////////////
                     function checkKey(keyPressed) {
                                 
                                 if (keyPressed.key === 'ArrowUp') {
@@ -2408,7 +2432,8 @@ let ability;
                                     playerPunch();
                         }
                         }
-                            function playerPunch() {
+                            
+                        function playerPunch() {
                             if (points >= 2) {
                 for (let u=0; u<64; u++) {
                 let area = grid[u];
@@ -2459,8 +2484,7 @@ let ability;
                                 document.querySelector('.barrierAlert').innerHTML = '';
                             }, 3000);
                 }}
-                        
-                            function movePlayer() {
+                        function movePlayer() {
                                 if (points > 1) {
                                 for (let u=0; u<64; u++) {
                                 let area = grid[u];
@@ -4796,7 +4820,12 @@ document.body.addEventListener('keydown', (value)=>{
 
 function loadPuzzles() {
 if ((gameMode === 'endless' && subGameMode !== 'timed points') || gameMode === 'protect the zone') {
-    let randomPuzzleNum = Number((Math.random()*10).toFixed(0));
+        let qCount = 0;
+        puzzles.forEach((question)=>{
+            qCount++;
+        });
+        let randomPuzzleNum = Number(Math.round(Math.random()*qCount))
+    
     puzzles.forEach((item) => {
         if (item.num === randomPuzzleNum) {
             displayedPuzzle = item.html;
@@ -4805,6 +4834,9 @@ if ((gameMode === 'endless' && subGameMode !== 'timed points') || gameMode === '
               puzzlePoints = item.worth;
             puzzleAnswer = item.answer;
             puzzleFunction = item.puzzleF;
+            if (item.reveal === 'true') {
+                checkCAR = 'true';
+            }
         }
     })
     document.querySelector('.puzzleGames').innerHTML = `
@@ -4842,6 +4874,13 @@ function checkPuzzleInput() {
     }
     else {
         document.querySelector('.barrierAlert').innerHTML = 'Incorrect';
+        if (checkCAR === 'true') {
+        try {
+            document.querySelector('.customRevealAlert').innerHTML=`~*Answer: ${puzzleAnswer}`
+            setTimeout(()=>{
+                document.querySelector('.customRevealAlert').innerHTML = ``;
+            },4000)
+        } catch (error) {}}
         setTimeout(() => {
             document.querySelector('.barrierAlert').innerHTML = '';
             
